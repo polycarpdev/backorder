@@ -18,7 +18,7 @@ export default function BackOrderModal({ backOrderId, onClose, onUpdated }) {
 
   async function fetchBackOrder() {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${backOrderId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${backOrderId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -41,13 +41,13 @@ export default function BackOrderModal({ backOrderId, onClose, onUpdated }) {
     fetchBackOrder();
 
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/api/suppliers", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/suppliers`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
       .then(setSuppliers);
 
-    fetch("http://localhost:5000/api/users?role=STAFF", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?role=STAFF`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
@@ -67,7 +67,7 @@ export default function BackOrderModal({ backOrderId, onClose, onUpdated }) {
 
     setSaving(true);
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${backOrderId}/assign`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${backOrderId}/assign`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ export default function BackOrderModal({ backOrderId, onClose, onUpdated }) {
     setError("");
     setSaving(true);
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${backOrderId}/status`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${backOrderId}/status`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

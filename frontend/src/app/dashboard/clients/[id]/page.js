@@ -21,7 +21,7 @@ export default function ClientDetailPage() {
 
   async function fetchData() {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/clients/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

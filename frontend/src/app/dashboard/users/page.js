@@ -19,7 +19,7 @@ export default function UsersPage() {
 
   async function fetchUsers() {
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5000/api/users", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -37,7 +37,7 @@ export default function UsersPage() {
     e.preventDefault();
     setError("");
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5000/api/users", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function UsersPage() {
     const body = { name: editName.trim(), email: editEmail.trim(), role: editRole };
     if (editPassword.trim()) body.password = editPassword;
 
-    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function UsersPage() {
     if (!confirmed) return;
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/users/${u.id}/active`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${u.id}/active`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -10,7 +10,7 @@ export default function ClientsPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/api/clients", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())

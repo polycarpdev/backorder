@@ -20,7 +20,7 @@ export default function BackOrderDetailPage() {
 
   async function fetchBackOrder() {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -43,13 +43,13 @@ export default function BackOrderDetailPage() {
     fetchBackOrder();
 
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/api/suppliers", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/suppliers`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
       .then(setSuppliers);
 
-    fetch("http://localhost:5000/api/users?role=STAFF", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?role=STAFF`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
@@ -61,7 +61,7 @@ export default function BackOrderDetailPage() {
     setError("");
     setSaving(true);
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${id}/assign`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${id}/assign`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function BackOrderDetailPage() {
     setError("");
     setSaving(true);
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${id}/status`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${id}/status`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

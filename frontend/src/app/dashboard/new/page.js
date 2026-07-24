@@ -18,7 +18,7 @@ export default function NewBackOrderPage() {
   useEffect(() => {
     async function fetchNextCode() {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/stock-codes/next", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stock-codes/next`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -40,7 +40,7 @@ export default function NewBackOrderPage() {
     debounceRef.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/api/clients?search=${encodeURIComponent(clientName)}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/clients?search=${encodeURIComponent(clientName)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -57,7 +57,7 @@ export default function NewBackOrderPage() {
 
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/api/back-orders", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

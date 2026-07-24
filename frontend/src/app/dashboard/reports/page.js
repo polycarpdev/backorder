@@ -38,7 +38,7 @@ export default function ReportsPage() {
     if (dateTo) params.append("date_to", dateTo);
     if (status !== "ALL") params.append("status", status);
 
-    const res = await fetch(`http://localhost:5000/api/reports?${params.toString()}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports?${params.toString()}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

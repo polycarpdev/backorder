@@ -16,7 +16,7 @@ export default function NotificationBell() {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) return;
@@ -51,7 +51,7 @@ export default function NotificationBell() {
 
   async function markAllRead() {
     const token = localStorage.getItem("token");
-    await fetch("http://localhost:5000/api/notifications/read-all", {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications/read-all`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -61,7 +61,7 @@ export default function NotificationBell() {
   async function handleClickNotification(n) {
     const token = localStorage.getItem("token");
     if (!n.read_at) {
-      await fetch(`http://localhost:5000/api/notifications/${n.id}/read`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications/${n.id}/read`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -14,7 +14,7 @@ export default function CommentThread({ backOrderId, currentUser, onApplied }) {
 
   async function fetchComments() {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${backOrderId}/comments`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${backOrderId}/comments`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -40,7 +40,7 @@ export default function CommentThread({ backOrderId, currentUser, onApplied }) {
     }
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/back-orders/${backOrderId}/comments`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders/${backOrderId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function CommentThread({ backOrderId, currentUser, onApplied }) {
     if (!confirmed) return;
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/comments/${commentId}/apply`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/${commentId}/apply`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -88,7 +88,7 @@ export default function CommentThread({ backOrderId, currentUser, onApplied }) {
     if (!confirmed) return;
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/comments/${commentId}/dismiss`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/${commentId}/dismiss`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     });

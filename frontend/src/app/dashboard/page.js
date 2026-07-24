@@ -39,7 +39,7 @@ export default function DashboardPage() {
   async function fetchBackOrders() {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/api/back-orders", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/back-orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
