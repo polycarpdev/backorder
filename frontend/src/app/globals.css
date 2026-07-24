@@ -1,49 +1,110 @@
+@import "tailwindcss";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-ink: #1C2430;
+  --color-paper: #F7F5F0;
+  --color-steel: #5B6B79;
+  --color-amber: #E8A33D;
+  --color-signal: #3E7C5A;
+  --color-rust: #B5482F;
+  --color-surface: #FFFFFF;
+
+  --btn-primary-bg: var(--color-ink);
+  --btn-primary-text: var(--color-paper);
+  --btn-primary-border: transparent;
+  --modal-border: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+[data-theme="dark"] {
+  --color-ink: #E8E6E1;
+  --color-paper: #050505;
+  --color-steel: #83909D;
+  --color-amber: #F0B65C;
+  --color-signal: #56C08A;
+  --color-rust: #E2694C;
+  --color-surface: #0D0D0D;
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --btn-primary-bg: transparent;
+  --btn-primary-text: var(--color-amber);
+  --btn-primary-border: var(--color-amber);
+  --modal-border: rgba(232, 230, 225, 0.15);
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-border);
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  0% { opacity: 0; transform: translateY(24px) scale(0.92); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.015); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes dropdownPop {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.9); }
+  60% { opacity: 1; transform: translateY(2px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes bellRing {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  15% { transform: rotate(-18deg) scale(1.15); }
+  30% { transform: rotate(16deg) scale(1.15); }
+  45% { transform: rotate(-12deg) scale(1.1); }
+  60% { transform: rotate(8deg) scale(1.05); }
+  75% { transform: rotate(-4deg) scale(1.02); }
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(0deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+.animate-overlay { animation: overlayFadeIn 0.18s ease-out; }
+.animate-modal { animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-dropdown { animation: dropdownPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: top right; }
+.animate-row { animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-bell { animation: bellRing 0.6s ease-in-out; transform-origin: top center; }
+.animate-icon-spin { animation: iconSpin 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+button, a {
+  transition: transform 0.12s ease, background-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+button:hover:not(:disabled) { transform: translateY(-1px); }
+button:active:not(:disabled) { transform: scale(0.96) translateY(0); }
+
+table tbody tr { transition: background-color 0.15s ease, transform 0.15s ease; }
+table tbody tr:hover { transform: translateX(2px); }
+
+input, select, textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.25s ease;
+}
+
+@media print {
+  aside, nav, header, .print\:hidden { display: none !important; }
+  body { background: white; color: black; }
+  #report-print-area { padding: 0; }
+  table { font-size: 11px; }
 }

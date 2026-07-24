@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const pool = require('../db');
 
-function verifyToken(req, res, next) {
+async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -11,6 +12,12 @@ function verifyToken(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const result = await pool.query('SELECT is_active FROM users WHERE id = $1', [decoded.id]);
+    if (result.rows.length === 0 || !result.rows[0].is_active) {
+      return res.status(403).json({ error: 'This account has been suspended.' });
+    }
+
     req.user = decoded;
     next();
   } catch (err) {
@@ -28,4 +35,3 @@ function requireRole(...allowedRoles) {
 }
 
 module.exports = { verifyToken, requireRole };
-

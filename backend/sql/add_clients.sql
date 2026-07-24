@@ -1,0 +1,7 @@
+CREATE TABLE clients (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(150) UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE back_orders ADD COLUMN client_id INTEGER REFERENCES clients(id);
